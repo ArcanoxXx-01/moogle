@@ -101,12 +101,60 @@ public static class Moogle
         return false;
     }
     //crear snipper
-    static string Snipper(Documento A, Query B)
+    static string Snippet(Documento A, Query B)
     {
-        string snipper = "";
+        string snippet = "";
 
+        //buscar la palabra mas relevante 
+        float contador = 0.0f;
+        string PalabraMasRelevante = "";
+        foreach (var X in B.palabras)
+        {
+            if (X.Value * A.TF_IDF[X.Key] >= contador)
+            {
+                contador = X.Value * A.TF_IDF[X.Key];
+                PalabraMasRelevante = X.Key;
+            }
+        }
+        //buscar fragmento donde aparezca la palabra mas relevante
+        for (int i = 0; i < A.TodasLasPalabras.Length; i++)
+        {
+            if (SonIguales(PalabraMasRelevante, A.TodasLasPalabras[i]))
+            {
+                if (i > 7)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        snippet += A.TodasLasPalabras[i - 7 + j];
+                        snippet += " ";
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j <= i; j++)
+                    {
+                        snippet += A.TodasLasPalabras[j];
+                        snippet += " ";
+                    }
+                }
+                if (A.TodasLasPalabras.Length - i < 7)
+                {
+                    for (int j = i + 1; j < A.TodasLasPalabras.Length; j++)
+                    {
+                        snippet += A.TodasLasPalabras[j];
+                    }
+                }
+                else{
+                    for(int j=i+1;j<i+8;j++){
+                        snippet+=A.TodasLasPalabras[j];
+                    }
+                }
+                return snippet;
 
-        return snipper;
+            }
+        }
+
+        return snippet;
     }
     //Agregar un nuevo SearchItem a la lista pero q quede organizada la lista 
     static void Agregar(List<SearchItem> A, SearchItem B)
@@ -134,7 +182,7 @@ public static class Moogle
             documentos[i].score = CalcularScore(documentos[i], entrada);
             if (documentos[i].score != 0)
             {
-                SearchItem A = new SearchItem(documentos[i].titulo, Snipper(documentos[i], entrada), documentos[i].score);
+                SearchItem A = new SearchItem(documentos[i].titulo, Snippet(documentos[i], entrada), documentos[i].score);
                 Agregar(list, A);
             }
         }
