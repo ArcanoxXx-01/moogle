@@ -16,6 +16,10 @@ a, .btn-link {
     color: #ff0000;
 }
 
+.texto{
+    color: #fff;
+}
+
 .btn-primary {
     color: #000000;
     background-color: #665148;

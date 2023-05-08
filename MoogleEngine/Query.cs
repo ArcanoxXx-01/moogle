@@ -30,7 +30,7 @@ public class Query
         {
             if ((texto[i] == '!' || texto[i] == '^' || texto[i] == '*') && i != texto.Length)
             {
-                texto = texto.Insert(i+1, " ");
+                texto = texto.Insert(i + 1, " ");
             }
         }
     }

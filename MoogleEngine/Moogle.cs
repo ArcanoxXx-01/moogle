@@ -78,6 +78,7 @@ public static class Moogle
             //Norma del vector de la query
             NormaB += B.palabras[X.Key] * B.palabras[X.Key];
         }
+        Console.WriteLine(NormaB);
         //Norma del vector deldocumento
         foreach (var palabra in A.TF_IDF)
         {
@@ -110,10 +111,13 @@ public static class Moogle
         string PalabraMasRelevante = "";
         foreach (var X in B.palabras)
         {
-            if (X.Value * A.TF_IDF[X.Key] >= contador)
+            if (A.TF_IDF.ContainsKey(X.Key) && X.Value * A.TF_IDF[X.Key] >= contador)
             {
-                contador = X.Value * A.TF_IDF[X.Key];
-                PalabraMasRelevante = X.Key;
+                if (X.Key.Length > 2)
+                {
+                    contador = X.Value * A.TF_IDF[X.Key];
+                    PalabraMasRelevante = X.Key;
+                }
             }
         }
         //buscar fragmento donde aparezca la palabra mas relevante
@@ -142,11 +146,15 @@ public static class Moogle
                     for (int j = i + 1; j < A.TodasLasPalabras.Length; j++)
                     {
                         snippet += A.TodasLasPalabras[j];
+                        snippet += " ";
                     }
                 }
-                else{
-                    for(int j=i+1;j<i+8;j++){
-                        snippet+=A.TodasLasPalabras[j];
+                else
+                {
+                    for (int j = i + 1; j < i + 8; j++)
+                    {
+                        snippet += A.TodasLasPalabras[j];
+                        snippet += " ";
                     }
                 }
                 return snippet;

@@ -2,7 +2,7 @@
 
 <PageTitle>Moogle!</PageTitle>
 
-<h1>🔍 Moogle!</h1>
+<h1 class="texto">🔍 Moogle!</h1>
 
 <input class="p-1 my-4" @bind="query" placeholder="Introduzca su búsqueda">
 
@@ -10,13 +10,13 @@
 
 @if (!string.IsNullOrEmpty(result.Suggestion)) {
     <div class="suggestion">
-        <p>¿Quisite decir <strong><a href="#">@result.Suggestion</a></strong>?</p>
+        <p class="texto">¿Quisite decir <strong><a href="#">@result.Suggestion</a></strong>?</p>
     </div>
 }
 
 <ul class="results">
 @foreach (var item in result.Items()) {
-    <li>
+    <li class="texto">
         <div class="item">
             <p class="title">@item.Title</p>
             <p>... @item.Snippet ...</p>
