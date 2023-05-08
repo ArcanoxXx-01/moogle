@@ -7,12 +7,13 @@ public static class Moogle
     public static Dictionary<string, float> IDF = new Dictionary<string, float>();
     static Moogle()
     {
-        Console.WriteLine("el moogle esta cargando");
+        Console.WriteLine("Moogle! esta cargando");
+        Console.WriteLine("Por Favor sea paciente");
         ConstruirDocumentos();
         LlenarIDF();
         CrearTF_IDF();
-        Console.WriteLine("el moogle ya cargo");
-        
+        Console.WriteLine("Moogle! ya cargo");
+
     }
     static void ConstruirDocumentos()
     {
@@ -67,14 +68,17 @@ public static class Moogle
         float NormaA = 0.0f;
         float NormaB = 0.0f;
 
-        foreach (var palabra in B.TF_IDF)
+        //productos de vectores 
+        foreach (var X in B.palabras)
         {
-            if (A.TF_IDF.ContainsKey(palabra.Key))
+            if (A.TF_IDF.ContainsKey(X.Key))
             {
-                score += A.TF_IDF[palabra.Key] * B.TF_IDF[palabra.Key];
+                score += A.TF_IDF[X.Key] * B.palabras[X.Key];
             }
-            NormaB += B.TF_IDF[palabra.Key] * B.TF_IDF[palabra.Key];
+            //Norma del vector de la query
+            NormaB += B.palabras[X.Key] * B.palabras[X.Key];
         }
+        //Norma del vector deldocumento
         foreach (var palabra in A.TF_IDF)
         {
             NormaA += A.TF_IDF[palabra.Key] * A.TF_IDF[palabra.Key];
@@ -112,18 +116,19 @@ public static class Moogle
             if (B.Score >= A[i].Score)
             {
                 A.Insert(i, B);
-                break;
+                return;
             }
-            if (i == A.Count) A.Add(B);
         }
-
+        A.Add(B);
     }
 
     public static SearchResult Query(string query)
     {
         Query entrada = new Query(query);
+
         List<SearchItem> list = new List<SearchItem>();
-        //asignarle el score a cada documento
+
+        //obtener el score de cada doc y agregarlo a list de forma conveniente
         for (int i = 0; i < cantidadDeDocumentos; i++)
         {
             documentos[i].score = CalcularScore(documentos[i], entrada);

@@ -5,7 +5,7 @@ public class Query
 {
     string texto;
     string[] TodasLasPalabras;
-    Dictionary<string, int> palabras;
+    public Dictionary<string, int> palabras;
     public void LlenarPalabras()
     {
         for (int i = 0; i < TodasLasPalabras.Length; i++)
