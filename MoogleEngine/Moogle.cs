@@ -7,13 +7,9 @@ public static class Moogle
     public static Dictionary<string, float> IDF = new Dictionary<string, float>();
     static Moogle()
     {
-        Console.WriteLine("Moogle! esta cargando");
-        Console.WriteLine("Por Favor sea paciente");
         ConstruirDocumentos();
         LlenarIDF();
         CrearTF_IDF();
-        Console.WriteLine("Moogle! ya cargo");
-
     }
     static void ConstruirDocumentos()
     {
@@ -37,6 +33,8 @@ public static class Moogle
         {
             foreach (var A in documentos[i].palabras)
             {
+
+
                 if (IDF.ContainsKey(A.Key))
                 {
                     IDF[A.Key]++;
@@ -45,6 +43,7 @@ public static class Moogle
                 {
                     IDF.Add(A.Key, 1);
                 }
+
             }
         }
         foreach (var A in IDF)
@@ -71,6 +70,8 @@ public static class Moogle
         //productos de vectores 
         foreach (var X in B.palabras)
         {
+            if (X.Key.Length == 0 || X.Key == " ") continue;
+            if (IDF.ContainsKey(X.Key) && IDF[X.Key] == 0) continue;
             if (A.TF_IDF.ContainsKey(X.Key))
             {
                 score += A.TF_IDF[X.Key] * B.palabras[X.Key];
@@ -78,7 +79,6 @@ public static class Moogle
             //Norma del vector de la query
             NormaB += B.palabras[X.Key] * B.palabras[X.Key];
         }
-        Console.WriteLine(NormaB);
         //Norma del vector deldocumento
         foreach (var palabra in A.TF_IDF)
         {
@@ -158,11 +158,29 @@ public static class Moogle
                     }
                 }
                 return snippet;
-
             }
         }
-
         return snippet;
+    }
+    //comprobar que el documento contiene todas las palabras obligatorias
+    static bool ComprobarTienenQueEstar(Documento A, Query B)
+    {
+        if (B.TienenQueEstar.Count == 0) return true;
+        foreach (string x in B.TienenQueEstar)
+        {
+            if (!A.palabras.ContainsKey(x)) return false;
+        }
+        return true;
+    }
+    //comprobar que el documento no contiene ninguna de las palabras q no se ueden tener 
+    static bool ComprobarNoPuedenEstar(Documento A, Query B)
+    {
+        if (B.NoPuedenEstar.Count == 0) return true;
+        foreach (string x in B.NoPuedenEstar)
+        {
+            if (A.palabras.ContainsKey(x)) return false;
+        }
+        return true;
     }
     //Agregar un nuevo SearchItem a la lista pero q quede organizada la lista 
     static void Agregar(List<SearchItem> A, SearchItem B)
@@ -177,10 +195,14 @@ public static class Moogle
         }
         A.Add(B);
     }
-
     public static SearchResult Query(string query)
     {
         Query entrada = new Query(query);
+
+        if (entrada.palabras.Count == 0)
+        {
+            return new SearchResult(new SearchItem[] { new SearchItem("No introdujo nada en la busqueda", "Introduzca una nueva busqueda", 0) }, query);
+        }
 
         List<SearchItem> list = new List<SearchItem>();
 
@@ -190,9 +212,32 @@ public static class Moogle
             documentos[i].score = CalcularScore(documentos[i], entrada);
             if (documentos[i].score != 0)
             {
-                SearchItem A = new SearchItem(documentos[i].titulo, Snippet(documentos[i], entrada), documentos[i].score);
-                Agregar(list, A);
+                if (ComprobarTienenQueEstar(documentos[i], entrada) && ComprobarNoPuedenEstar(documentos[i], entrada))
+                {
+                    SearchItem A = new SearchItem(documentos[i].titulo, Snippet(documentos[i], entrada), documentos[i].score);
+                    Agregar(list, A);
+                }
             }
+        }
+
+        foreach (var x in entrada.palabras)
+        {
+            Console.WriteLine(x.Key + " " + x.Key.Length);
+        }
+
+        //en caso de q no exista ningun doc relacionado con la busqueda 
+        foreach (string x in entrada.TienenQueEstar)
+        {
+            System.Console.WriteLine(x + " " + x.Length);
+        }
+        foreach (string x in entrada.NoPuedenEstar)
+        {
+            System.Console.WriteLine(x + " " + x.Length);
+        }
+        if (list.Count == 0)
+        {
+            SearchItem sugerencia = new SearchItem("No existe ningun documento asociado a su busqueda ", "Por Favor introduzca una nueva busqueda con palabras aceptadas", 0.1f);
+            list.Add(sugerencia);
         }
         return new SearchResult(list.ToArray(), query);
     }
