@@ -31,12 +31,3 @@ documento que contiene la palabra con mayor relevancia con respecto a la query (
  la base de datos no tiene muchos libros pero se le pueden poner mas XD
 
  espero q el diseño sea de su agrado , se q es sencillo pero tengo planes de mejorarlo 
-
-
-
-
-
-
-
-
-
