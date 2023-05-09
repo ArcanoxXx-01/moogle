@@ -105,11 +105,18 @@ Entre las propiedades de la clase Moogle se encuentran:
 
     Propiedades:
 
-    string texto;
-    string[] TodasLasPalabras;
-    string[] TodasLasPalabrasConCaracteres;
-    public Dictionary<string, int> palabras;
-    public List<string> TienenQueEstar = new List<string>();
+    string texto; // lo mismo q para los documentos pero este guarda el texto de la query
+    string[] TodasLasPalabras; // ...XD
+    
+    string[] TodasLasPalabrasConCaracteres; //
+    
+    public Dictionary<string, int> palabras; // ... 
+    
+    public List<string> TienenQueEstar = new 
+    // 
+    
+    
+    List<string>();
     public List<string> NoPuedenEstar = new List<string>();
 
 
@@ -121,12 +128,25 @@ El tipo `SearchResult` recibe en su constructor dos argumentos: `items` y `sugge
 
 Cada `SearchItem` recibe 3 argumentos en su constructor: `title`, `snippet` y `score`. El parámetro `title` debe ser el título del documento (el nombre del archivo de texto correspondiente). El parámetro `snippet` debe contener una porción del documento donde se encontró el contenido del `query`. El parámetro `score` tendrá un valor de tipo `float` que será más alto mientras más relevante sea este item.
 
- Por supuesto, hay que devolver los `items` ordenados de mayor a menor por este valor de `score`!
 
 ## Sobre la búsqueda
 
 La busqueda esta basada en el principio de similitud de coseno entre los vectores TF-IDF.
 
 Para ello en primer lugar el usuario debe escribir una frase a buscar 
+
+
+
+PARA EL USUARIO 
+
+los txt de la base de datos estan en español
+
+Pasos para realizar la busqueda:
+
+1-escriba una frase a buscar 
+
+2-recibira una lista ordenada de mayor a menor relevancia de todos los documentos con respecto 
+a la query realizada.
+
 
 
