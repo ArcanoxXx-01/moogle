@@ -12,10 +12,9 @@ Es una aplicación web, desarrollada con tecnología .NET Core 6.0, específicam
 La aplicación está dividida en dos componentes fundamentales:
 
 - `MoogleServer` es un servidor web que renderiza la interfaz gráfica y sirve los resultados.
-- `MoogleEngine` es una biblioteca de clases donde está... ehem... casi implementada la lógica del algoritmo de búsqueda.
+- `MoogleEngine` es una biblioteca de clases donde está implementada la lógica del algoritmo de búsqueda.
 
-Hasta el momento hemos logrado implementar gran parte de la interfaz gráfica (que es lo fácil), pero nos está causando graves problemas la lógica. Aquí es donde entras tú.
-
+- `MoogleEngine` esta compues
 ## Tu misión
 
 Tu misión (si decides aceptarla) es ayudarnos a implementar el motor de búsqueda de Moogle! (sí, el nombre es así con ! al final). Para ello, deberás modificar el método `Moogle.Query` que está en la clase `Moogle` del proyecto `MoogleEngine`.
