@@ -164,6 +164,9 @@ documento que contiene la palabra con mayor relevancia con respecto a la query (
  palabra q acompaña, por lo q la relevancia de la palabra se multiplica por 2^(cantidad de * q tenga delante)
  porque se pueden poner mas de un * delate , lo q todos tienen q estar juntos,
 
+ Pruebe hacer busqueda con algunas combinaciones de estos caracteres lo q siempre ponga los caracteres delante de la palabra y pegada a ella y no poner mas de un ! o un ^ (el programa no explota xq lo hagas pero no tiene sentido hacerlo) y por supuesto no poner juntos !^ xq no tiene ningun sentido.
+
+
 
 
 
