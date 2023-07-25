@@ -46,6 +46,7 @@ public class Matriz
             }          
         }
         return new Matriz(Producto);
+
     }
     public Matriz(double[,]a)
     {

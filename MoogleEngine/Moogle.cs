@@ -219,21 +219,6 @@ public static class Moogle
                 }
             }
         }
-
-        foreach (var x in entrada.palabras)
-        {
-            Console.WriteLine(x.Key + " " + x.Key.Length);
-        }
-
-        //en caso de q no exista ningun doc relacionado con la busqueda 
-        foreach (string x in entrada.TienenQueEstar)
-        {
-            System.Console.WriteLine(x + " " + x.Length);
-        }
-        foreach (string x in entrada.NoPuedenEstar)
-        {
-            System.Console.WriteLine(x + " " + x.Length);
-        }
         if (list.Count == 0)
         {
             SearchItem sugerencia = new SearchItem("No existe ningun documento asociado a su busqueda ", "Por Favor introduzca una nueva busqueda con palabras aceptadas", 0.1f);
