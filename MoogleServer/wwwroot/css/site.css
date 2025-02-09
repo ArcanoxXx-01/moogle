@@ -6,6 +6,7 @@ html, body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    min-height: 100vh;
 }
 
 h1:focus {
@@ -21,9 +22,18 @@ a, .btn-link {
 }
 
 .btn-primary {
-    color: #000000;
+    color: #fff;
     background-color: #665148;
-    border-color: #000000;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #4a3a34;
+    transform: translateY(-2px);
 }
 
 .content {
@@ -70,3 +80,80 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+/* Título principal */
+h1.texto {
+    color: #fff;
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Barra de búsqueda */
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+input {
+    flex: 1;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid #665148;
+    border-radius: 25px;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.9);
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(102,81,72,0.5);
+}
+
+/* Resultados */
+.results {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    list-style: none;
+}
+
+.item {
+    background: rgba(255,255,255,0.9);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.item:hover {
+    transform: translateY(-3px);
+}
+
+.title {
+    color: #665148;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Sugerencias */
+.suggestion {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.suggestion a {
+    color: #ff6b6b;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.suggestion a:hover {
+    text-decoration: underline;
+}
